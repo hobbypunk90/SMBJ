@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
+  <ImageView fx:id="background" fitHeight="260.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+    
+  </ImageView>
+  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="500.0">
+    <ProgressBar fx:id="progress" layoutX="215.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1.0" prefWidth="285.0" stylesheets="@../css/ProgressBar.css" />
+    <Label fx:id="title" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="59.0" prefWidth="480.0">
+      <font>
+        <Font size="48.0" />
+      </font>
+    </Label>
+    <Label fx:id="subtitle" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="74.0" prefHeight="21.0" prefWidth="480.0">
+      <font>
+        <Font size="18.0" />
+      </font>
+    </Label>
+    <Label fx:id="version" alignment="CENTER_RIGHT" layoutX="3.0" layoutY="240.0" prefHeight="16.0" prefWidth="494.0" />
+  </AnchorPane>
+</StackPane>
