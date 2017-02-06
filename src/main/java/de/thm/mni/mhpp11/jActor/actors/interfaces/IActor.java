@@ -41,7 +41,6 @@ public interface IActor extends Runnable {
       try {
         lastMsg = this.getInbox().take();
         execute(lastMsg);
-        lastMsg = lastMsg;
       } catch (InterruptedException e) {
         System.err.println(this);
         e.printStackTrace();

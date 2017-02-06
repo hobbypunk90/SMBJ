@@ -88,9 +88,7 @@ public class MessageBus extends AbstractActor {
     Set<UUID> groups = new HashSet<>(actors.keySet());
     groups.forEach(group -> {
       Set<Integer> groupActors = new HashSet<>(actors.get(group).keySet());
-      groupActors.forEach(integer ->  {
-        offerGroupMember(group, integer, msg);
-      });
+      groupActors.forEach(integer -> offerGroupMember(group, integer, msg));
     });
   }
   

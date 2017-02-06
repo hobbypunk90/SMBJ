@@ -5,6 +5,7 @@ import de.thm.mni.mhpp11.jActor.actors.utilities.Constants;
 import de.thm.mni.mhpp11.jActor.messages.interfaces.Message;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,5 +26,11 @@ public class StartUIMessage extends Message {
     super(Constants.GLOBALGROUP, Constants.UICREATOR);
     this.controllerClass = controllerClass;
     this.params = params;
+  }
+  
+  public StartUIMessage(Class<? extends ActorController> controllerClass, Object... params) {
+    super(Constants.GLOBALGROUP, Constants.UICREATOR);
+    this.controllerClass = controllerClass;
+    this.params = Arrays.asList(params);
   }
 }

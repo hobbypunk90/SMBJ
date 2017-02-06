@@ -4,6 +4,7 @@ import de.thm.mni.mhpp11.jActor.actors.utilities.Constants;
 import de.thm.mni.mhpp11.jActor.messages.interfaces.Message;
 import lombok.Getter;
 import lombok.NonNull;
+import org.slf4j.event.Level;
 
 import java.util.UUID;
 
@@ -12,40 +13,42 @@ import java.util.UUID;
  */
 @Getter
 public abstract class LogMessage extends Message {
+  private final Level level;
   private final Class<?> cause;
   private final String title;
   private final String message;
   
-  LogMessage(@NonNull Class<?> cause) {
-    this(cause, "");
+  LogMessage(@NonNull Level level, @NonNull Class<?> cause) {
+    this(level, cause, "");
   }
   
-  LogMessage(@NonNull Class<?> cause, @NonNull String message) {
-    this(cause, Constants.GLOBALGROUP, Constants.LOGGER, "", message);
+  LogMessage(@NonNull Level level, @NonNull Class<?> cause, @NonNull String message) {
+    this(level, cause, Constants.GLOBALGROUP, Constants.LOGGER, "", message);
   }
   
-  LogMessage(@NonNull Class<?> cause, @NonNull String title, @NonNull String message) {
-    this(cause, Constants.GLOBALGROUP, Constants.LOGGER, title, message);
+  LogMessage(@NonNull Level level, @NonNull Class<?> cause, @NonNull String title, @NonNull String message) {
+    this(level, cause, Constants.GLOBALGROUP, Constants.LOGGER, title, message);
   }
   
-  LogMessage(@NonNull Class<?> cause, UUID group) {
-    this(cause, group, "");
+  LogMessage(@NonNull Level level, @NonNull Class<?> cause, UUID group) {
+    this(level, cause, group, "");
   }
   
-  LogMessage(@NonNull Class<?> cause, UUID group, @NonNull String message) {
-    this(cause, group, Constants.UI | Constants.LOGGER, message);
+  LogMessage(@NonNull Level level, @NonNull Class<?> cause, UUID group, @NonNull String message) {
+    this(level, cause, group, Constants.UI | Constants.LOGGER, message);
   }
   
-  LogMessage(@NonNull Class<?> cause, UUID group, @NonNull String title, @NonNull String message) {
-    this(cause, group, Constants.UI | Constants.LOGGER, title, message);
-  }
-
-  private LogMessage(@NonNull Class<?> cause, UUID group, @NonNull Integer to, @NonNull String message) {
-    this(cause, group, to, "", message);
+  LogMessage(@NonNull Level level, @NonNull Class<?> cause, UUID group, @NonNull String title, @NonNull String message) {
+    this(level, cause, group, Constants.UI | Constants.LOGGER, title, message);
   }
   
-  private LogMessage(@NonNull Class<?> cause, UUID group, @NonNull Integer to, @NonNull String title, @NonNull String message) {
+  private LogMessage(@NonNull Level level, @NonNull Class<?> cause, UUID group, @NonNull Integer to, @NonNull String message) {
+    this(level, cause, group, to, "", message);
+  }
+  
+  private LogMessage(@NonNull Level level, @NonNull Class<?> cause, UUID group, @NonNull Integer to, @NonNull String title, @NonNull String message) {
     super(group, to);
+    this.level = level;
     this.cause = cause;
     this.title = title;
     this.message = message;

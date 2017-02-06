@@ -68,8 +68,8 @@ public class SplashController extends Application implements IActorController {
     primaryStage.setResizable(false);
     
     actor = new SplashActor(this).onStart();
-    actor.getBus().send(new RegisterMessage(getGroup(), actor));
     initSplash();
+    actor.getBus().send(new RegisterMessage(getGroup(), actor));
   }
   
   private void initSplash() {
@@ -85,23 +85,26 @@ public class SplashController extends Application implements IActorController {
   }
   
   private void initSplash(SplashInitMessage msg) {
-    if(msg.getTitle() != null) title.setText(msg.getTitle());
-    if(msg.getTitleColor() != null) title.setTextFill(msg.getTitleColor());
-    if(msg.getSubTitle() != null) subtitle.setText(msg.getSubTitle());
-    if(msg.getSubTitleColor() != null) subtitle.setTextFill(msg.getSubTitleColor());
-    if(msg.getVersion() != null) version.setText(msg.getVersion());
-    if(msg.getVersionColor() != null) version.setTextFill(msg.getVersionColor());
+    Platform.runLater(() -> {
+      if (msg.getTitle() != null) title.setText(msg.getTitle());
+      if (msg.getTitleColor() != null) title.setTextFill(msg.getTitleColor());
+      if (msg.getSubTitle() != null) subtitle.setText(msg.getSubTitle());
+      if (msg.getSubTitleColor() != null) subtitle.setTextFill(msg.getSubTitleColor());
+      if (msg.getVersion() != null) version.setText(msg.getVersion());
+      if (msg.getVersionColor() != null) version.setTextFill(msg.getVersionColor());
     
-    if(msg.getProgressInfinity() != null) {
-      progress.setProgress((msg.getProgressInfinity()) ? ProgressIndicator.INDETERMINATE_PROGRESS : 0.0);
-    }
-    if(msg.getProgressColor() != null) {
-      progress.setStyle("-fx-accent: " + msg.getProgressColor().toString().replaceAll("^0x", "#"));
-    }
+      if (msg.getProgressInfinity() != null) {
+        progress.setProgress((msg.getProgressInfinity()) ? ProgressIndicator.INDETERMINATE_PROGRESS : 0.0);
+      }
+      if (msg.getProgressColor() != null) {
+        progress.setStyle("-fx-accent: " + msg.getProgressColor().toString().replaceAll("^0x", "#"));
+      }
     
-    if(msg.getBackground() != null) {
-      background.setImage(msg.getBackground());
-    }
+      if (msg.getBackground() != null) {
+        background.setImage(msg.getBackground());
+      }
+    
+    });
   }
   
   private static class SplashActor extends AbstractUIActor<SplashController, Message> {
@@ -136,7 +139,7 @@ public class SplashController extends Application implements IActorController {
     @Override
     public void executeUI(Message msg) {
       if(msg instanceof SplashInitMessage) {
-        Platform.runLater(() -> (getController()).initSplash((SplashInitMessage) msg));
+        (getController()).initSplash((SplashInitMessage) msg);
       } else if (msg instanceof SplashShowMessage) {
         updateValue((SplashShowMessage) msg);
       }

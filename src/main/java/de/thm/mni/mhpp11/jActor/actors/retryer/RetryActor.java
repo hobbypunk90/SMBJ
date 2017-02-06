@@ -18,6 +18,7 @@ import java.util.UUID;
 
 public class RetryActor extends AbstractActor {
   
+  private static Integer maxTries = 10;
   private static Logger log = (Logger)org.slf4j.LoggerFactory.getLogger(RetryActor.class);
   static {
     log.setLevel(Level.ALL);
@@ -47,13 +48,15 @@ public class RetryActor extends AbstractActor {
     } else if(msg instanceof RegisteredMessage) {
       log.trace("Retryer started");
     } else {
-      try {
-        Thread.sleep(150);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+      if (msg.nextTry() <= maxTries) {
+        try {
+          Thread.sleep(150);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        log.debug(msg.toString());
+        this.send(msg);
       }
-      log.debug(msg.toString());
-      if (msg.nextTry() <= 5) this.send(msg);
       //TODO else
     }
   }
