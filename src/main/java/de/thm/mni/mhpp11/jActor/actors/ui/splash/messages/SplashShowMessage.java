@@ -16,4 +16,9 @@ public class SplashShowMessage extends Message {
     super(Constants.GLOBALGROUP, Constants.UI);
     this.showSplash = showSplash;
   }
+  
+  @Override
+  public String toString() {
+    return super.toString() + " Show: " + showSplash;
+  }
 }

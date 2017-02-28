@@ -8,7 +8,6 @@ import de.thm.mni.mhpp11.jActor.actors.messagebus.messages.RegisterMessage;
 import de.thm.mni.mhpp11.jActor.actors.messagebus.messages.RegisteredMessage;
 import de.thm.mni.mhpp11.jActor.actors.messagebus.messages.StartMessage;
 import de.thm.mni.mhpp11.jActor.actors.messagebus.messages.UnregisteredMessage;
-import de.thm.mni.mhpp11.jActor.actors.retryer.RetryActor;
 import de.thm.mni.mhpp11.jActor.actors.ui.UICreatorActor;
 import de.thm.mni.mhpp11.jActor.actors.utilities.Constants;
 import de.thm.mni.mhpp11.jActor.messages.ErrorExitMessage;
@@ -21,9 +20,10 @@ import java.util.*;
  * Created by hobbypunk on 18.01.17.
  */
 public class MessageBus extends AbstractActor {
- 
-  private static MessageBus INSTANCE = new MessageBus();
+  
+  private static MessageBus INSTANCE = null;
   public static MessageBus getInstance() {
+    if (INSTANCE == null) INSTANCE = new MessageBus();
     return INSTANCE;
   }
   
@@ -32,7 +32,6 @@ public class MessageBus extends AbstractActor {
   private MessageBus() {
     super(Constants.GLOBALGROUP);
     getInbox().offer(new StartMessage(LogActor.class, Constants.GLOBALGROUP));
-    getInbox().offer(new StartMessage(RetryActor.class, Constants.GLOBALGROUP));
     getInbox().offer(new StartMessage(UICreatorActor.class, Constants.GLOBALGROUP));
   }
     
@@ -76,7 +75,7 @@ public class MessageBus extends AbstractActor {
           offerGroup(msg.getGroup(), msg);
         } else throw new NoSuchElementException(String.format("No such group %1$s", msg.getGroup()));
       } catch (NoSuchElementException e) {
-        if(actors.containsKey(Constants.GLOBALGROUP) && actors.get(Constants.GLOBALGROUP).containsKey(Constants.RETRYER))
+        if (actors.containsKey(Constants.GLOBALGROUP) && actors.get(Constants.GLOBALGROUP).containsKey(Constants.RETRYER)) //TODO: never called, no retryer ;)
           actors.get(Constants.GLOBALGROUP).get(Constants.RETRYER).receive(msg);
         else
           this.getInbox().offer(msg);

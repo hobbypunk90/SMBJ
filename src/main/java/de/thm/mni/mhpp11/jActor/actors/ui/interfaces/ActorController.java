@@ -75,11 +75,15 @@ public abstract class ActorController implements IActorController {
   public static ActorController configure(URL location) throws IOException, ReflectionException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
     return configure(location, null);
   }
-    
+  
   public static ActorController configure(URL location, ResourceBundle resources) throws IOException, ReflectionException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-    return configure(UUID.randomUUID(), location, resources, Collections.EMPTY_LIST);
+    return configure(UUID.randomUUID(), location, resources);
   }
-
+  
+  public static ActorController configure(UUID group, URL location, ResourceBundle resources) throws IOException, ReflectionException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    return configure(group, location, resources, Collections.EMPTY_LIST);
+  }
+  
   public static ActorController configure(UUID group, URL location, ResourceBundle resources, List<?> params) throws IOException, ReflectionException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(location);
