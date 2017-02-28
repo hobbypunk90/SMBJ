@@ -6,7 +6,7 @@
 
   <groupId>de.thm.mni.mhpp11</groupId>
   <artifactId>jActor</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
 
   <properties>
     <maven.compile.source>1.8</maven.compile.source>
