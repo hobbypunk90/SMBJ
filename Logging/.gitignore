@@ -1,5 +1,4 @@
 .flattened-pom.xml
-*.puml
 
 ### macOS template
 # General
@@ -29,7 +28,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 ### Maven template
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -71,7 +69,6 @@ cmake-build-debug/
 
 ## File-based project format:
 *.iws
-*.iml
 
 ## Plugin-specific files:
 
